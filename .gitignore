@@ -21,3 +21,6 @@ logs
 
 out
 *.log
+
+config/*
+dev/*

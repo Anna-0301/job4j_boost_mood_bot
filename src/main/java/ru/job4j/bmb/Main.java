@@ -20,4 +20,11 @@ public class Main {
             appConfig.printConfig();
         };
     }
+
+    @Bean
+    public CommandLineRunner checkEnv(ApplicationContext ctx) {
+        return args -> {
+            System.out.println(ctx.getEnvironment().getProperty("telegram.bot.name"));
+        };
+    }
 }
