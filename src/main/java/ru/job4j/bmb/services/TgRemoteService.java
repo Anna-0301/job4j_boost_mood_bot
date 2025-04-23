@@ -1,6 +1,5 @@
 package ru.job4j.bmb.services;
 
-import javassist.ClassMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -10,12 +9,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class TgRemoteService extends TelegramLongPollingBot {
 
-    private static final ClassMap MOOD_RESP = new ClassMap();
+    private static final HashMap MOOD_RESP = new HashMap();
 
     static {
         MOOD_RESP.put("lost_sock", "Носки — это коварные создания. Но не волнуйся, второй обязательно найдётся!");
@@ -49,7 +49,7 @@ public class TgRemoteService extends TelegramLongPollingBot {
         if (update.hasCallbackQuery()) {
             var data = update.getCallbackQuery().getData();
             var chatId = update.getCallbackQuery().getMessage().getChatId();
-            send(new SendMessage(String.valueOf(chatId), MOOD_RESP.get(data)));
+            send(new SendMessage(String.valueOf(chatId), MOOD_RESP.get(data).toString()));
         }
         if (update.hasMessage() && update.getMessage().hasText()) {
             long chatId = update.getMessage().getChatId();
