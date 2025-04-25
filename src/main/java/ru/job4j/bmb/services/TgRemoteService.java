@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.job4j.bmb.model.User;
-import ru.job4j.bmb.repository.UserFakeRepository;
+import ru.job4j.bmb.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,14 +30,14 @@ public class TgRemoteService extends TelegramLongPollingBot {
 
     private final String botName;
     private final String botToken;
-    private final UserFakeRepository userFakeRepository;
+    private final UserRepository userRepository;
 
     public TgRemoteService(@Value("${telegram.bot.name}") String botName,
                            @Value("${telegram.bot.token}") String botToken,
-                           UserFakeRepository userFakeRepository) {
+                           UserRepository userFakeRepository) {
         this.botName = botName;
         this.botToken = botToken;
-        this.userFakeRepository = userFakeRepository;
+        this.userRepository = userFakeRepository;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TgRemoteService extends TelegramLongPollingBot {
             if ("/start".equals(message.getText())) {
                 long chatId = message.getChatId();
                 var user = new User(0L, message.getFrom().getId(), chatId);
-                userFakeRepository.save(user);
+                userRepository.save(user);
                 /* По коду в задаче этот класс не реализован: userRepository.add(user); */
                 send(sendButtons(chatId));
             }
