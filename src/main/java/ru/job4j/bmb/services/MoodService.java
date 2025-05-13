@@ -62,7 +62,6 @@ public class MoodService {
         return Optional.of(content);
     }
 
-    //Возвращает лог настроений пользователя за прошедший месяц.
     public Optional<Content> monthMoodLogCommand(long chatId, Long clientId) {
         var content = new Content(chatId);
         List<MoodLog> moodLogs = moodLogRepository
