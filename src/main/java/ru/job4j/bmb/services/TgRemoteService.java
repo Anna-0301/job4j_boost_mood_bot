@@ -8,7 +8,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.job4j.bmb.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,23 +28,11 @@ public class TgRemoteService extends TelegramLongPollingBot {
 
     private final String botName;
     private final String botToken;
-    private final UserRepository userRepository;
 
     public TgRemoteService(@Value("${telegram.bot.name}") String botName,
-                           @Value("${telegram.bot.token}") String botToken,
-                           UserRepository userRepository) {
+                           @Value("${telegram.bot.token}") String botToken) {
         this.botName = botName;
         this.botToken = botToken;
-        this.userRepository = userRepository;
-    }
-
-    public String getBotName() {
-        return botName;
-    }
-
-    @Override
-    public String getBotUsername() {
-        return null;
     }
 
     @Override
@@ -53,8 +40,9 @@ public class TgRemoteService extends TelegramLongPollingBot {
         return botToken;
     }
 
-    public UserRepository getUserRepository() {
-        return userRepository;
+    @Override
+    public String getBotUsername() {
+        return botName;
     }
 
     @Override
