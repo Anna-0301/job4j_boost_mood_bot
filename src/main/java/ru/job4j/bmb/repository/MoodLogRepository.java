@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface MoodLogRepository extends CrudRepository<MoodLog, Long> {
     List<MoodLog> findAll();
+
     Optional<MoodLog> findByUserId(Long userId);
 }
