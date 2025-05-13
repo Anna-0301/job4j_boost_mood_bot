@@ -20,6 +20,12 @@ public class MoodLog {
 
     private long createdAt;
 
+    public MoodLog(User user, Mood mood) {
+        this.user = user;
+        this.mood = mood;
+        createdAt = System.currentTimeMillis();
+    }
+
     public Long getId() {
         return id;
     }
