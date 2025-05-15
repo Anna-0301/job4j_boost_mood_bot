@@ -16,12 +16,6 @@ public class User {
     @Column(name = "chat_id")
     private long chatId;
 
-    public User(Long id, long clientId, long chatId) {
-        this.id = id;
-        this.clientId = clientId;
-        this.chatId = chatId;
-    }
-
     public Long getId() {
         return id;
     }

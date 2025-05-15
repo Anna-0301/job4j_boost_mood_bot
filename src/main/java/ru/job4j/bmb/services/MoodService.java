@@ -54,7 +54,7 @@ public class MoodService {
         List<MoodLog> moodLogs = moodLogRepository
                 .findAll()
                 .stream()
-                .filter(p -> p.getUser().getId().equals(clientId)
+                .filter(p -> p.getUser().getClientId() == (clientId)
                         && p.getUser().getChatId() == chatId
                         && p.getCreatedAt() > (System.currentTimeMillis()) - (DAY * 7))
                 .toList();
@@ -67,7 +67,7 @@ public class MoodService {
         List<MoodLog> moodLogs = moodLogRepository
                 .findAll()
                 .stream()
-                .filter(p -> p.getUser().getId().equals(clientId)
+                .filter(p -> p.getUser().getClientId() == (clientId)
                         && p.getUser().getChatId() == chatId
                         && p.getCreatedAt() > (System.currentTimeMillis()) - MONTH)
                 .toList();
@@ -92,7 +92,7 @@ public class MoodService {
         achievementRepository
                 .findAll()
                 .stream()
-                .filter(p -> p.getUser().getId().equals(clientId)
+                .filter(p -> p.getUser().getClientId() == (clientId)
                         && p.getUser().getChatId() == chatId)
                 .forEach(awards -> {
                     content.setText(awards.getAward().getTitle() + "\n");
