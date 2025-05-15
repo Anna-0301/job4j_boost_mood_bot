@@ -26,7 +26,7 @@ public class TgUI {
         return inlineKeyboardMarkup;
     }
 
-    private InlineKeyboardButton createBtn(String name, Long moodId) {
+    public InlineKeyboardButton createBtn(String name, Long moodId) {
         var inline = new InlineKeyboardButton();
         inline.setText(name);
         inline.setCallbackData(String.valueOf(moodId));

@@ -28,11 +28,14 @@ public class TgRemoteService extends TelegramLongPollingBot {
 
     private final String botName;
     private final String botToken;
+    private final TgUI tgUI;
 
     public TgRemoteService(@Value("${telegram.bot.name}") String botName,
-                           @Value("${telegram.bot.token}") String botToken) {
+                           @Value("${telegram.bot.token}") String botToken,
+                           TgUI tgUI) {
         this.botName = botName;
         this.botToken = botToken;
+        this.tgUI = tgUI;
     }
 
     @Override
@@ -66,24 +69,17 @@ public class TgRemoteService extends TelegramLongPollingBot {
         }
     }
 
-    InlineKeyboardButton createBtn(String name, String data) {
-        var inline = new InlineKeyboardButton();
-        inline.setText(name);
-        inline.setCallbackData(data);
-        return inline;
-    }
-
-    public SendMessage sendButtons(long chatId) {
+       public SendMessage sendButtons(long chatId) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText("Как настроение сегодня?");
         var inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
-        keyboard.add(List.of(createBtn("Потерял носок \uD83D\uDE22", "lost_sock")));
-        keyboard.add(List.of(createBtn("Как огурец на полке \uD83D\uDE10", "cucumber")));
-        keyboard.add(List.of(createBtn("Готов к танцам \uD83D\uDE04", "dance_ready")));
-        keyboard.add(List.of(createBtn("Где мой кофе?! \uD83D\uDE23", "need_coffee")));
-        keyboard.add(List.of(createBtn("Слипаются глаза \uD83D\uDE29", "sleepy")));
+        keyboard.add(List.of(tgUI.createBtn("Потерял носок \uD83D\uDE22", 1L)));
+        keyboard.add(List.of(tgUI.createBtn("Как огурец на полке \uD83D\uDE10", 2L)));
+        keyboard.add(List.of(tgUI.createBtn("Готов к танцам \uD83D\uDE04", 3L)));
+        keyboard.add(List.of(tgUI.createBtn("Где мой кофе?! \uD83D\uDE23", 4L)));
+        keyboard.add(List.of(tgUI.createBtn("Слипаются глаза \uD83D\uDE29", 5L)));
         inlineKeyboardMarkup.setKeyboard(keyboard);
         message.setReplyMarkup(inlineKeyboardMarkup);
         return message;
